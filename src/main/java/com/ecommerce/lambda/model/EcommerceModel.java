@@ -8,6 +8,7 @@ import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
 import com.amazonaws.serverless.proxy.model.HttpApiV2ProxyRequest;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.ecommerce.lambda.controller.NotificationController;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.jackson.JacksonFeature;;
 import org.glassfish.jersey.process.internal.RequestScoped;
@@ -36,16 +37,11 @@ public class EcommerceModel implements RequestStreamHandler {
                             .to(HttpServletRequest.class).in(RequestScoped.class);
                     bindFactory(AwsProxyServletResponseSupplier.class)
                             .to(HttpServletResponse.class).in(RequestScoped.class);
-//                    bind(new DynamoDbQuestion()).to(DynamoDbQuestion.class);
-//                    bindAsContract(Problem.class);
-//                    bindAsContract(ProblemInventoryController.class);
+                    bind(new NotificationController()).to(NotificationController.class);
                 }
             }).register(new Feature() {
                 @Override
                 public boolean configure(FeatureContext featureContext) {
-//                    featureContext.register(DynamoDbQuestion.class);
-//                    featureContext.register(Problem.class);
-//                    featureContext.register(ProblemInventoryController.class);
 
                     return true;
                 }
